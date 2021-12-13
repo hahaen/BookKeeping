@@ -1,16 +1,12 @@
 package com.hahaen.bookkeeping.controller;
 
 import com.hahaen.bookkeeping.converter.c2s.UserInfoC2SConverter;
-import com.hahaen.bookkeeping.exception.ErrorResponse;
 import com.hahaen.bookkeeping.exception.InvalidParameterException;
-import com.hahaen.bookkeeping.exception.ResourceNotFoundException;
-import com.hahaen.bookkeeping.exception.ServiceException;
 import com.hahaen.bookkeeping.manager.UserInfoManager;
 import com.hahaen.bookkeeping.model.service.UserInfo;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,6 +27,13 @@ public class UserController {
         this.userInfoManager = userInfoManager;
         this.userInfoC2SConverter = userInfoC2SConverter;
     }
+
+    /**
+     * Get user information by specifid user id.
+     *
+     * @param userId the user id
+     * @return user info response entity.
+     */
 
     @GetMapping("/{id}")
     public ResponseEntity<UserInfo> getUserInfoByUserId(@PathVariable("id") Long userId) {

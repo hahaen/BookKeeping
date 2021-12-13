@@ -22,7 +22,7 @@ public class UserInfoDAOTest {
     private UserInfoMapper userInfoMapper;
 
     @InjectMocks
-    private UserInfoDAOImpl userInfoDAO;
+    private UserInfoDaoImpl userInfoDAO;
 
     @Test
     public void testGetUserInfoById() {

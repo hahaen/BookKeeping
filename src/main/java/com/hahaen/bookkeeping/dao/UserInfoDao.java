@@ -2,7 +2,7 @@ package com.hahaen.bookkeeping.dao;
 
 import com.hahaen.bookkeeping.model.persistence.UserInfo;
 
-public interface UserInfoDAO {
+public interface UserInfoDao {
 
     UserInfo getUserInfoById(Long id);
 

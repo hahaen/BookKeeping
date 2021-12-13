@@ -1,7 +1,6 @@
 package com.hahaen.bookkeeping.exception;
 
 import lombok.val;
-import org.apache.ibatis.jdbc.Null;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,11 +15,11 @@ public class GlobalExceptionHandler {
                 ErrorResponse.builder()
                         .statusCode(ex.getStatusCode())
                         .message(ex.getMessage())
-                        .Code(ex.getErrorCode())
+                        .code(ex.getErrorCode())
                         .errorType(ex.getErrorType())
                         .build();
-        return ResponseEntity.status(ex.getStatusCode() != 0 ?
-                        ex.getStatusCode() : HttpStatus.INTERNAL_SERVER_ERROR.value())
+        return ResponseEntity.status(ex.getStatusCode() != 0
+                        ? ex.getStatusCode() : HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .body(errorResponse);
     }
 }

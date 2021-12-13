@@ -1,7 +1,7 @@
 package com.hahaen.bookkeeping.manager;
 
 import com.hahaen.bookkeeping.converter.p2c.UserInfoP2CConverter;
-import com.hahaen.bookkeeping.dao.UserInfoDAO;
+import com.hahaen.bookkeeping.dao.UserInfoDao;
 import com.hahaen.bookkeeping.exception.ResourceNotFoundException;
 import com.hahaen.bookkeeping.model.persistence.UserInfo;
 import lombok.val;
@@ -22,7 +22,7 @@ public class UserInfoManagerTest {
     private UserInfoManager userInfoManager;
 
     @Mock
-    private UserInfoDAO userInfoDAO;
+    private UserInfoDao userInfoDAO;
 
     @BeforeEach
     public void setup() {

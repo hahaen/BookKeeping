@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-public class UserInfoDAOImpl implements UserInfoDAO {
+public class UserInfoDaoImpl implements UserInfoDao {
 
     private final UserInfoMapper userInfoMapper;
 
