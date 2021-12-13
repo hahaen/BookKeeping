@@ -4,6 +4,7 @@ import com.hahaen.bookkeeping.converter.c2s.UserInfoC2SConverter;
 import com.hahaen.bookkeeping.exception.InvalidParameterException;
 import com.hahaen.bookkeeping.manager.UserInfoManager;
 import com.hahaen.bookkeeping.model.service.UserInfo;
+import com.sun.istack.internal.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,9 +37,9 @@ public class UserController {
      */
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserInfo> getUserInfoByUserId(@PathVariable("id") Long userId) {
+    public ResponseEntity<UserInfo> getUserInfoByUserId(@PathVariable("id") @NotNull Long userId) {
         log.debug("Get user info by user id {}", userId);
-        if (userId == null || userId <= 0L) {
+        if (userId <= 0L) {
             throw new InvalidParameterException(String.format("The user %s is invalid", userId));
         }
         val userInfo = userInfoManager.getUserInfoByUserId(userId);

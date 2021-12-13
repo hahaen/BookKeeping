@@ -5,7 +5,6 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import com.hahaen.bookkeeping.converter.c2s.UserInfoC2SConverter;
 import com.hahaen.bookkeeping.exception.GlobalExceptionHandler;
-import com.hahaen.bookkeeping.exception.ResourceNotFoundException;
 import com.hahaen.bookkeeping.manager.UserInfoManager;
 import com.hahaen.bookkeeping.model.common.UserInfo;
 import lombok.val;
@@ -89,17 +88,16 @@ public class UserControllerTest {
     @Test
     public void testGetUserInfoByUserIdWithInvalidUserId() throws Exception {
         //Arrange
-        val userId = 100L;
-
-        doThrow(new ResourceNotFoundException(String.format("The user %s is invalid", userId)))
-                .when(userInfoManager)
-                .getUserInfoByUserId(anyLong());
+        val userId = -100L;
 
         //art & assert
         mockMvc.perform(get("/v1.0/users/" + userId))
                 .andExpect(status().is4xxClientError())
                 .andExpect(content().contentType("application/json"))
-                .andExpect(content().string("{\"errorType\":\"Client\",\"message\":\"The user 100 is invalid\",\"statusCode\":404,\"code\":\"USER_INFO_NOT_FOUND\"}"));
+                .andExpect(content().string("{\"code\":\"INVALID_PARAMETER\",\"errorType\":\"Client\",\"message\":\"The user -100 is invalid\",\"statusCode\":400}"));
+
+        verify(userInfoManager, never()).getUserInfoByUserId(anyLong());
+
     }
 
 }
