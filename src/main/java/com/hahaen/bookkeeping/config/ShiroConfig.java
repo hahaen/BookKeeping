@@ -29,13 +29,14 @@ public class ShiroConfig {
         val shiroFilterFactoryBean = new ShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
 
-        val shiroFilterDefintionMap = new LinkedHashMap<String, String>();
+        val shiroFilterDefinitionMap = new LinkedHashMap<String, String>();
 
         //shiroFilterDefintionMap.put("/v1.0/greeting", "authc");
         //shiroFilterDefintionMap.put("/v1.0/users", "anon");
-        shiroFilterDefintionMap.put("/v1.0/session/", "anon");
-        //shiroFilterDefintionMap.put("/**", "authc");
-        shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroFilterDefintionMap);
+        //shiroFilterDefinitionMap.put("/v1.0/session", "anon");
+        shiroFilterDefinitionMap.put("/**", "anon");
+
+        shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroFilterDefinitionMap);
 
         return shiroFilterFactoryBean;
     }

@@ -34,6 +34,14 @@ public class UserInfoManagerImpl implements UserInfoManager {
     }
 
     @Override
+    public UserInfo getUserInfoByUserName(String userName) {
+        return Optional.ofNullable(userInfoDao.getUserInfoByUserName(userName))
+                .map(userInfoP2CConverter::convert)
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        String.format("User name %s was not found", userName)));
+    }
+
+    @Override
     public void login(String username, String password) {
         //Get subject
         val subejt = SecurityUtils.getSubject();

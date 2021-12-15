@@ -12,6 +12,13 @@ public interface UserInfoManager {
     UserInfo getUserInfoByUserId(Long userId);
 
     /**
+     * Get user infomation by user name.
+     *
+     * @param userName the specific user name.
+     */
+    UserInfo getUserInfoByUserName(String userName);
+
+    /**
      * Login with username and password.
      *
      * @param username username

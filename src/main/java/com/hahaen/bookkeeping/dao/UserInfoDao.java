@@ -6,4 +6,8 @@ public interface UserInfoDao {
 
     UserInfo getUserInfoById(Long id);
 
+    UserInfo getUserInfoByUserName(String userName);
+
+    void createNewUser(String username, String password);
+
 }
