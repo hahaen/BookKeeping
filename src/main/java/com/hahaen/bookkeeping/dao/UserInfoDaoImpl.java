@@ -23,8 +23,8 @@ public class UserInfoDaoImpl implements UserInfoDao {
     }
 
     @Override
-    public void createNewUser(String username, String password) {
-
+    public void createNewUser(UserInfo userInfo) {
+        userInfoMapper.createNewUser(userInfo);
     }
 
 }

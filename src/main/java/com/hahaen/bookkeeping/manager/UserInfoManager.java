@@ -25,4 +25,12 @@ public interface UserInfoManager {
      * @param password the related password
      */
     void login(String username, String password);
+
+    /**
+     * Register new user with username and passsword.
+     *
+     * @param username username
+     * @param password the related password
+     */
+    UserInfo register(String username, String password);
 }

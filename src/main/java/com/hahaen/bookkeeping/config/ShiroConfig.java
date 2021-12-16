@@ -1,6 +1,7 @@
 package com.hahaen.bookkeeping.config;
 
 import lombok.val;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.realm.Realm;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -12,6 +13,9 @@ import java.util.LinkedHashMap;
 
 @Configuration
 public class ShiroConfig {
+    public static final String HASH_ALGORITHM_NAME = "SHA-256";
+    public static final int HASH_ITERATIONS = 1000;
+
     @Bean
     public SecurityManager securityManager(Realm realm) {
         return new DefaultWebSecurityManager(realm);
@@ -31,13 +35,23 @@ public class ShiroConfig {
 
         val shiroFilterDefinitionMap = new LinkedHashMap<String, String>();
 
-        //shiroFilterDefintionMap.put("/v1.0/greeting", "authc");
-        //shiroFilterDefintionMap.put("/v1.0/users", "anon");
-        //shiroFilterDefinitionMap.put("/v1.0/session", "anon");
-        shiroFilterDefinitionMap.put("/**", "anon");
-
+        //@Todo: consider different HTTP method may need different fifter.
+        //shiroFilterDefinitionMap.put("/v1.0/greeting", "authc");
+        shiroFilterDefinitionMap.put("/v1.0/users", "anon");
+        shiroFilterDefinitionMap.put("/v1.0/session", "anon");
+        shiroFilterDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroFilterDefinitionMap);
 
         return shiroFilterFactoryBean;
+    }
+
+    @Bean
+    public HashedCredentialsMatcher matcher() {
+        val matcher = new HashedCredentialsMatcher();
+        matcher.setHashAlgorithmName(HASH_ALGORITHM_NAME);
+        matcher.setHashIterations(HASH_ITERATIONS);
+        matcher.setHashSalted(true);
+        matcher.setStoredCredentialsHexEncoded(false);
+        return matcher;
     }
 }

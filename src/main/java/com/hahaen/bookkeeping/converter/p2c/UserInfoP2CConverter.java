@@ -16,18 +16,19 @@ public class UserInfoP2CConverter extends Converter<UserInfo, com.hahaen.bookkee
     @Override
     protected com.hahaen.bookkeeping.model.common.UserInfo doForward(@NotNull UserInfo userInfo) {
         return com.hahaen.bookkeeping.model.common.UserInfo.builder()
-            .id(userInfo.getId())
-            .username(userInfo.getUsername())
-            .password(userInfo.getPassword())
-            .build();
+                .id(userInfo.getId())
+                .username(userInfo.getUsername())
+                .password(userInfo.getPassword())
+                .salt(userInfo.getSalt())
+                .build();
     }
 
     @Override
     protected UserInfo doBackward(@NotNull com.hahaen.bookkeeping.model.common.UserInfo userInfo) {
         return UserInfo.builder()
-            .id(userInfo.getId())
-            .username(userInfo.getUsername())
-            .password(userInfo.getPassword())
-            .build();
+                .id(userInfo.getId())
+                .username(userInfo.getUsername())
+                .password(userInfo.getPassword())
+                .build();
     }
 }
