@@ -29,16 +29,18 @@ public class ShiroConfig {
      * role : role -> access.
      */
     @Bean
-    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
-        val shiroFilterFactoryBean = new ShiroFilterFactoryBean();
+    public ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager,
+                                                         CustomHttpFilter customHttpFilter) {
+        val shiroFilterFactoryBean = new CustomShiroFilterFactoryBean();
         shiroFilterFactoryBean.setSecurityManager(securityManager);
-
+        val filters = shiroFilterFactoryBean.getFilters();
+        filters.put("custom", customHttpFilter);
         val shiroFilterDefinitionMap = new LinkedHashMap<String, String>();
 
-        //@Todo: consider different HTTP method may need different fifter.
-        //shiroFilterDefinitionMap.put("/v1.0/greeting", "authc");
-        shiroFilterDefinitionMap.put("/v1.0/users", "anon");
         shiroFilterDefinitionMap.put("/v1.0/session", "anon");
+
+        shiroFilterDefinitionMap.put("/v1.0/users/**::POST", "custom");
+
         shiroFilterDefinitionMap.put("/**", "authc");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(shiroFilterDefinitionMap);
 
